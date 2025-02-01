@@ -23,11 +23,13 @@ The platform provides **detailed analytics and solutions** to enhance the quiz e
 
 ### 🎯 Quiz Attempt Page
 
-![Quizzy Question](./screenshots/quiz-attempt.png)
+![Quizzy Question](./static/1.png)
+![Quizzy Question](./static/2.png)
+![Quizzy Question](./static/3.png)
 
 ### 📊 Quiz Analytics
 
-![Quizzy Analytics](./screenshots/quiz-analytics.png)
+![Quizzy Analytics](./static/4.png)
 
 ---
 
