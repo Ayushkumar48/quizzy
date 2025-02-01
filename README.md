@@ -1,5 +1,7 @@
 # 📚 Quizzy - The Ultimate Quiz Website
 
+🚀 **Live Demo:** [Quizzy](https://quizzy-jade.vercel.app/)
+
 **Quizzy** is a feature-rich quiz platform built using **SvelteKit**, **DynamoDB**, and the **Quiz API**.  
 It offers a clean and modern UI powered by **Tailwind CSS** and **Flowbite UI**.  
 The platform provides **detailed analytics and solutions** to enhance the quiz experience.
