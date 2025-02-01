@@ -19,6 +19,7 @@
 	let loading = $state(false);
 	async function handleSubmit() {
 		loading = true;
+		clearInterval(interval);
 		try {
 			const res = await fetch('/api/quiz', {
 				method: 'POST',
@@ -32,7 +33,7 @@
 				return fail("Can't submit quiz");
 			}
 			toast.success('Quiz submitted successfully.');
-			setTimeout(() => goto('/quiz/analytics'), 2000);
+			goto('/quiz/analytics');
 
 			const result = await res.json();
 		} catch (error) {

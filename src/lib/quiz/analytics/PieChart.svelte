@@ -73,7 +73,7 @@
 	});
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="-z-30 flex flex-col gap-4">
 	<Card>
 		{#if options}
 			<Chart {options} class="py-6" />
