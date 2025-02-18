@@ -4,8 +4,8 @@
 	data = data.data;
 </script>
 
-<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-	<header class="mb-8">
+<div class="mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8">
+	<header class="mb-12">
 		<h1 class="text-3xl font-bold tracking-tight text-slate-900">Available Quizzes</h1>
 		<p class="mt-2 text-sm text-slate-600">Select a quiz to begin your assessment</p>
 	</header>
