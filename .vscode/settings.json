@@ -1,0 +1,133 @@
+{
+  // Files exclude
+  "files.exclude": {
+    "**/.venv/**": true,
+    "**/build/**": true,
+    "**/__pycache__/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.pytest_cache/**": true
+  },
+  "search.exclude": {
+    "**/.venv/**": true,
+    "**/backup/**": true,
+    "**/build/**": true,
+    "**/alembic/**": true
+  },
+
+  "github.copilot.chat.edits.codesearch.enabled": true,
+  "chat.agent.enabled": true,
+
+  // Editor settings
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "workbench.editor.labelFormat": "short",
+  "workbench.colorCustomizations": {
+    "editorBracketPairGuide.background1": "#939393",
+    "editorBracketPairGuide.background2": "#656565",
+    "editorBracketPairGuide.background3": "#656565",
+    "editorBracketPairGuide.activeBackground1": "#656565",
+    "editorBracketPairGuide.activeBackground2": "#656565",
+    "editorBracketPairGuide.activeBackground3": "#656565"
+  },
+  "[svelte]": { "editor.defaultFormatter": "svelte.svelte-vscode" },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 160,
+    "editor.formatOnSave": true
+    // "editor.rulers": [160]
+  },
+  "prettier.printWidth": 160,
+  "editor.guides.indentation": true,
+  "python.languageServer": "Pylance",
+  "python.analysis.autoFormatStrings": true,
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.organizeImports": "never"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+  "python.analysis.extraPaths": ["homa"],
+  "python.analysis.typeCheckingMode": "off",
+
+  //todo-tree settings
+  "todo-tree.general.tags": ["TODO", "FIXME", "BUG", "[ ]", "[x]"],
+  "todo-tree.regex.regexCaseSensitive": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "foreground": "#d5d5d5",
+    "background": "#1c4f76",
+    "icon": "check",
+    "rulerColour": "#1c4f76",
+    "type": "tag",
+    "iconColour": "#2c6fa1"
+  },
+
+  // Exclude .venv and node_modules from todo-tree
+  "todo-tree.filtering.excludeGlobs": ["**/.venv/**", "**/prompts/**"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "background": "#429d56",
+      "icon": "checklist",
+      "rulerColour": "#a22626",
+      "iconColour": "#358914"
+    },
+    "[ ]": {
+      "background": "#a22626",
+      "icon": "checklist",
+      "rulerColour": "#a22626",
+      "iconColour": "#358914"
+    },
+    "[x]": {
+      "background": "#208a16",
+      "icon": "checklist",
+      "rulerColour": "#a22626",
+      "iconColour": "#358914"
+    },
+    "FIXME": {
+      "background": "#d96e10",
+      "icon": "flame",
+      "rulerColour": "#d96e10",
+      "iconColour": "#d96e10"
+    },
+    "BUG": {
+      "background": "#e82d2d",
+      "icon": "bug",
+      "iconColour": "#e82d2d",
+      "rulerColour": "#e82d2d"
+    }
+  },
+  "github.copilot.enable": {
+    "plaintext": true,
+    "markdown": true
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "darkriszty.markdown-table-prettify"
+  }
+}

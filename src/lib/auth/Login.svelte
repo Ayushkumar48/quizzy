@@ -2,12 +2,11 @@
 	import eyeopen from '$lib/assets/eyeopen.svg';
 	import eyeclose from '$lib/assets/eyeclose.svg';
 	import { enhance } from '$app/forms';
-	import { fade, fly, scale } from 'svelte/transition';
-	import { quintInOut, quintOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import { Spinner } from 'flowbite-svelte';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-
 	let { login = $bindable(), form } = $props();
 	let showPassword = $state(false);
 	let loading = $state(false);
@@ -15,7 +14,7 @@
 	$effect(() => {
 		if (form) {
 			if (form.success === true) {
-				toast.success('User Loggedin.');
+				toast.success('User Logged in');
 				goto('/');
 			} else {
 				loading = false;
@@ -28,93 +27,97 @@
 </script>
 
 <div
-	class="flex h-full w-full flex-col items-center justify-center gap-6"
+	class="mx-auto w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-lg sm:p-10"
 	in:fly={{ y: -50, duration: 500, easing: quintOut }}
-	out:fade={{ duration: 300 }}
->
-	<h3
-		class="text-3xl font-semibold"
-		in:fly={{ y: -20, duration: 600, delay: 200, easing: quintOut }}
-		out:fade={{ duration: 300 }}
-	>
-		Log in to your account
-	</h3>
+	out:fade={{ duration: 300 }}>
+	<div class="text-center">
+		<h2
+			class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+			in:fly={{ y: -20, duration: 600, delay: 200, easing: quintOut }}>
+			Welcome back
+		</h2>
+		<p class="mt-2 text-sm text-slate-600">Please sign in to your account</p>
+	</div>
+
 	<form
-		class="flex flex-col gap-4"
 		method="POST"
 		action="?/login"
 		use:enhance
-		in:fly={{ y: -30, duration: 600, delay: 400, easing: quintOut }}
-		out:fade={{ duration: 300 }}
-	>
-		<div class="flex flex-col gap-2">
-			<label for="username">Username:</label>
-			<input
-				type="username"
-				name="username"
-				id="username"
-				placeholder="username"
-				class="h-10 w-80 rounded-lg pl-3 text-lg ring-1 ring-gray-500 placeholder:text-sm focus:outline-blue-500"
-				in:fly={{ y: -10, duration: 600, delay: 500, easing: quintOut }}
-				out:fade={{ duration: 300 }}
-			/>
+		class="mt-8 space-y-6"
+		in:fly={{ y: -30, duration: 600, delay: 400, easing: quintOut }}>
+		<div class="space-y-2">
+			<label for="username" class="block text-sm font-medium text-slate-700">Username</label>
+			<div class="mt-1">
+				<input
+					type="username"
+					name="username"
+					id="username"
+					required
+					placeholder="Enter your username"
+					class="focus:border-primary-500 focus:ring-primary-500 block w-full appearance-none rounded-lg border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none sm:text-sm"
+					in:fly={{ y: -10, duration: 600, delay: 500, easing: quintOut }} />
+			</div>
 		</div>
-		<div class="flex flex-col gap-2">
-			<label for="password">Password:</label>
-			<div class="relative">
+
+		<div class="space-y-2">
+			<label for="password" class="block text-sm font-medium text-slate-700">Password</label>
+			<div class="relative mt-1">
 				<input
 					type={showPassword ? 'text' : 'password'}
 					name="password"
 					id="password"
-					placeholder="password"
-					class="h-10 w-80 rounded-lg pl-3 text-lg ring-1 ring-gray-500 placeholder:text-sm"
-					in:fly={{ y: -10, duration: 600, delay: 600, easing: quintOut }}
-					out:fade={{ duration: 300 }}
-				/>
+					required
+					placeholder="Enter your password"
+					class="focus:border-primary-500 focus:ring-primary-500 block w-full appearance-none rounded-lg border border-slate-300 px-3 py-2 pr-10 placeholder-slate-400 shadow-sm focus:outline-none sm:text-sm"
+					in:fly={{ y: -10, duration: 600, delay: 600, easing: quintOut }} />
 				<button
-					class="absolute right-0 top-1/2 flex h-full w-9 -translate-y-1/2 items-center justify-center border-l-2 border-slate-600"
+					type="button"
+					class="focus:ring-primary-500 absolute top-1/2 right-2 -translate-y-1/2 rounded-md p-1 text-slate-400 hover:text-slate-600 focus:ring-2 focus:outline-none"
 					onclick={(e) => {
 						e.preventDefault();
 						showPassword = !showPassword;
 					}}
 					aria-label={showPassword ? 'Hide Password' : 'Show Password'}
-					type="button"
-					in:fly={{ y: -10, duration: 600, delay: 700, easing: quintOut }}
-					out:fade={{ duration: 300 }}
-				>
-					<img src={showPassword ? eyeopen : eyeclose} alt="eyeopen" class="h-6 w-6" />
+					in:fly={{ y: -10, duration: 600, delay: 700, easing: quintOut }}>
+					<img
+						src={showPassword ? eyeopen : eyeclose}
+						alt="toggle password visibility"
+						class="h-5 w-5" />
 				</button>
 			</div>
 		</div>
+
 		<div>
 			<button
 				type="submit"
-				class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white ring-1 ring-gray-300"
-				in:fly={{ y: -10, duration: 600, delay: 800, easing: quintOut }}
-				out:fade={{ duration: 300 }}
+				class="bg-primary-600 hover:bg-primary-500 focus:ring-primary-500 flex w-full justify-center rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				disabled={loading}
 				onclick={() => (loading = true)}
-			>
+				in:fly={{ y: -10, duration: 600, delay: 800, easing: quintOut }}>
 				{#if loading}
-					<Spinner color="purple" />
+					<Spinner class="mr-2" size="4" color="white" />
+					Signing in...
 				{:else}
-					Login
+					Sign in
 				{/if}
 			</button>
 		</div>
 	</form>
-	<button
-		in:fly={{ y: -10, duration: 600, delay: 900, easing: quintOut }}
-		out:fade={{ duration: 300 }}
-	>
-		Forgot Password?
-	</button>
-	<div
-		in:fly={{ y: -10, duration: 600, delay: 1000, easing: quintOut }}
-		out:fade={{ duration: 300 }}
-	>
-		Doesn't have an account yet, <button
-			class="text-blue-600 hover:text-blue-400"
-			onclick={() => (login = false)}>click here</button
-		> to create one.
+
+	<div class="flex flex-col space-y-4 text-center text-sm">
+		<button
+			class="text-primary-600 hover:text-primary-500"
+			in:fly={{ y: -10, duration: 600, delay: 900, easing: quintOut }}>
+			Forgot your password?
+		</button>
+
+		<p class="text-slate-600" in:fly={{ y: -10, duration: 600, delay: 1000, easing: quintOut }}>
+			Don't have an account yet?{' '}
+			<button
+				class="text-primary-600 hover:text-primary-500 font-medium"
+				onclick={() => (login = false)}>
+				Sign up
+			</button>
+		</p>
 	</div>
 </div>

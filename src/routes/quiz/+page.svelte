@@ -3,7 +3,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { slide, fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import { Button, Modal, Spinner } from 'flowbite-svelte';
+	import { Button, Modal, Spinner, DarkMode } from 'flowbite-svelte';
 	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 	import { toast } from 'svelte-sonner';
 	import { fail } from '@sveltejs/kit';
@@ -72,124 +72,177 @@
 	}
 </script>
 
-<div class="relative w-full">
-	<div
-		class="fixed flex w-full flex-row justify-between gap-2 bg-white px-10 py-6 shadow-md ring-1 ring-gray-300"
-	>
-		<div class="flex flex-col justify-between gap-y-1">
-			<h3 class="text-2xl font-bold">
-				Chapter - {data.title || 'Random Chapter'}
-			</h3>
-			<h5 class="text-xl font-semibold">
-				Topic - {data.topic || 'Random Topic'}
-			</h5>
-		</div>
-		<div class="flex flex-col justify-between gap-2">
-			<div>No. of Questions - <span class="font-semibold">{data.questions.length}</span></div>
-			<div>
-				Max Marks - <span class="font-semibold">
-					{data.correct_answer_marks * data.questions_count}
-				</span>
-			</div>
-			<div>
-				<button
-					class="rounded-md bg-green-700 px-6 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-green-600"
-					onclick={() => (popupModal = true)}
-				>
-					Submit Quiz
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="items-left flex h-screen w-full flex-col justify-center gap-y-14 px-14">
-		<div class="relative h-[180px]">
-			<div class="pb-2 text-right">
-				Time - <span
-					class="font-semibold"
-					class:text-red-700={time < 60}
-					class:animate-pulse={time < 60}
-				>
-					{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
-				</span>
-			</div>
-			{#each [data.questions[questionNo]] as question (questionNo)}
-				<div
-					class="absolute w-full"
-					in:fly={{
-						x: 50 * direction,
-						duration: 400,
-						delay: 200,
-						easing: quintOut
-					}}
-					out:fly={{
-						x: -50 * direction,
-						duration: 400,
-						delay: 0,
-						easing: quintOut
-					}}
-				>
-					<Question
-						{question}
-						id={questionNo}
-						optionDisable={false}
-						bind:chosenOption={answers[questionNo]}
-					/>
+<div class="fixed inset-0 flex flex-col bg-slate-50 dark:bg-gray-900">
+	<header class="flex-none bg-white shadow-sm dark:bg-gray-800">
+		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
+			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div class="space-y-1">
+					<h1 class="text-xl font-bold text-slate-900 sm:text-2xl dark:text-white">
+						{data.title || 'Random Chapter'}
+					</h1>
+					<p class="text-sm font-medium text-slate-600 sm:text-base dark:text-gray-400">
+						Topic: {data.topic || 'Random Topic'}
+					</p>
 				</div>
-			{/each}
-		</div>
 
-		<div class="flex flex-row justify-between">
-			<div>
-				<button
-					class="w-full rounded-md bg-blue-600 px-8 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-300"
-					onclick={handlePrevious}
-					disabled={questionNo === 0}
-				>
-					Previous
-				</button>
+				<div class="flex flex-wrap items-center gap-4 text-sm sm:text-base">
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600 dark:text-gray-400">Questions:</span>
+						<span class="font-semibold text-slate-900 dark:text-white"
+							>{data.questions.length}</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600 dark:text-gray-400">Max Marks:</span>
+						<span class="font-semibold text-slate-900 dark:text-white"
+							>{data.correct_answer_marks * data.questions_count}</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600 dark:text-gray-400">Time:</span>
+						<span
+							class="font-semibold {time < 60
+								? 'animate-pulse text-red-600'
+								: 'text-slate-900 dark:text-white'}">
+							{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
+						</span>
+					</div>
+					<DarkMode class="text-gray-500 dark:text-gray-400" />
+					<button
+						class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 focus:ring-primary-500 rounded-lg px-4 py-2 font-medium text-white transition focus:ring-2 focus:ring-offset-2 focus:outline-none"
+						onclick={() => (popupModal = true)}>
+						Submit Quiz
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="relative flex min-h-0 flex-1">
+		<div class="flex w-full flex-col">
+			<div class="flex flex-1 items-center justify-center p-4 sm:px-6 lg:px-8">
+				{#each [data.questions[questionNo]] as question (questionNo)}
+					<div class="w-full max-w-[90rem]">
+						<Question
+							{question}
+							id={questionNo}
+							optionDisable={false}
+							bind:chosenOption={answers[questionNo]} />
+					</div>
+				{/each}
 			</div>
 
-			<div>
-				<button
-					class="w-full rounded-md bg-blue-600 px-8 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-300"
-					onclick={handleNext}
-					disabled={questionNo === data.questions.length - 1}
-				>
-					Next
-				</button>
+			<div
+				class="sticky bottom-0 mt-auto w-full border-t border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-6 lg:px-8 dark:border-gray-700 dark:bg-gray-800">
+				<div
+					class="mx-auto flex max-w-[90rem] flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+					<button
+						class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+						onclick={handlePrevious}
+						disabled={questionNo === 0}>
+						<svg
+							class="mr-2 h-5 w-5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+						</svg>
+						Previous
+					</button>
+
+					<div
+						class="flex items-center justify-center text-sm font-medium text-slate-600 dark:text-gray-400">
+						<span class="flex items-center gap-2">
+							<svg
+								class="text-primary-500 dark:text-primary-400 h-5 w-5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+							</svg>
+							Question {questionNo + 1} of {data.questions.length}
+						</span>
+					</div>
+
+					<button
+						class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium tracking-wide text-white uppercase shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+						onclick={handleNext}
+						disabled={questionNo === data.questions.length - 1}>
+						Next
+						<svg
+							class="ml-2 h-5 w-5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+						</svg>
+					</button>
+				</div>
 			</div>
 		</div>
-	</div>
+	</main>
 </div>
 
-<Modal bind:open={popupModal} size="xs">
+<Modal bind:open={popupModal} size="sm" class="dark:bg-gray-800">
 	<div class="text-center">
-		<ExclamationCircleOutline class="mx-auto mb-4 h-12 w-12 text-gray-400 dark:text-gray-200" />
-		<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-			{time === 0 ? 'Click submit to submit the quiz' : 'Are you sure you want to end the quiz?'}
+		<svg
+			class="mx-auto h-12 w-12 text-slate-400 dark:text-gray-500"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+		</svg>
+		<h3 class="mb-5 text-lg font-medium text-slate-900 dark:text-white">
+			{time === 0 ? "Time's up! Submit your quiz now." : 'Are you sure you want to end the quiz?'}
 		</h3>
+		<div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
+			<button
+				type="button"
+				class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium tracking-wide text-white uppercase shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				onclick={handleSubmit}
+				disabled={loading}>
+				{#if loading}
+					<Spinner class="mr-2" size="4" color="white" />
+					Submitting...
+				{:else}
+					<svg
+						class="mr-2 h-5 w-5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+					</svg>
+					Submit Quiz
+				{/if}
+			</button>
 
-		<button
-			type="button"
-			class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-			onclick={handleSubmit}
-		>
-			{#if loading}
-				<div class="flex flex-row items-center justify-center gap-2">
-					<Spinner color="gray" size={4} />
-					...Submitting
-				</div>
-			{:else}
-				Submit
-			{/if}
-		</button>
-		<button
-			type="button"
-			class="mb-2 me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 disabled:cursor-not-allowed disabled:bg-slate-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-			disabled={time === 0}
-			onclick={() => (popupModal = false)}
-		>
-			Cancel
-		</button>
+			<button
+				type="button"
+				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+				disabled={time === 0}
+				onclick={() => (popupModal = false)}>
+				<svg
+					class="mr-2 h-5 w-5"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+				Continue Quiz
+			</button>
+		</div>
 	</div>
 </Modal>

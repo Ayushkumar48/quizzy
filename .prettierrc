@@ -8,7 +8,11 @@
 		{
 			"files": "*.svelte",
 			"options": {
-				"parser": "svelte"
+				"parser": "svelte",
+				"svelteIndentScriptAndStyle": true,
+				"svelteStrictMode": false,
+				"svelteBracketNewLine": false,
+				"svelteAllowShorthand": true
 			}
 		}
 	]
