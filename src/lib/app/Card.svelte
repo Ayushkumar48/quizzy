@@ -51,9 +51,9 @@
 			<span>{data.duration} min</span>
 		</div>
 
-		<div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-between">
+		<div class="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-between">
 			{#if completed}
-				<Button href="/quiz/analytics" className="w-full bg-green-700 hover:bg-green-600 sm:w-auto">
+				<Button href="/quiz/analytics" className="w-full bg-green-700 hover:bg-green-600 sm:w-full">
 					<svg class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
 						<path
 							stroke-linecap="round"
@@ -64,7 +64,7 @@
 					Analytics
 				</Button>
 			{/if}
-			<Button href="/quiz" className="w-full bg-primary-600 hover:bg-primary-700 sm:w-auto">
+			<Button href="/quiz" className="w-full bg-primary-600 hover:bg-primary-700 sm:w-full">
 				<svg class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
 					<path
 						stroke-linecap="round"
