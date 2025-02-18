@@ -18,9 +18,9 @@ async function fetchWithRetry(url, retries = 3, delay = 1000) {
 
 export async function load({ cookies }) {
 	const username = cookies.get('username');
-	if (!username || username === '') {
-		redirect(307, '/login');
-	}
+	// if (!username || username === '') {
+	// 	redirect(307, '/login');
+	// }
 	try {
 		const data = await fetchWithRetry('https://api.jsonserve.com/Uw5CrX');
 		return { data };
