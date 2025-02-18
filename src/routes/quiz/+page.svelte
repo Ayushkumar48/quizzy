@@ -72,124 +72,122 @@
 	}
 </script>
 
-<div class="relative w-full">
-	<div
-		class="fixed flex w-full flex-row justify-between gap-2 bg-white px-10 py-6 shadow-md ring-1 ring-gray-300"
-	>
-		<div class="flex flex-col justify-between gap-y-1">
-			<h3 class="text-2xl font-bold">
-				Chapter - {data.title || 'Random Chapter'}
-			</h3>
-			<h5 class="text-xl font-semibold">
-				Topic - {data.topic || 'Random Topic'}
-			</h5>
+<div class="min-h-screen bg-slate-50">
+	<header class="fixed top-0 right-0 left-0 z-30 w-full bg-white shadow-sm">
+		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
+			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div class="space-y-1">
+					<h1 class="text-xl font-bold text-slate-900 sm:text-2xl">
+						{data.title || 'Random Chapter'}
+					</h1>
+					<p class="text-sm font-medium text-slate-600 sm:text-base">
+						Topic: {data.topic || 'Random Topic'}
+					</p>
+				</div>
+
+				<div class="flex flex-wrap items-center gap-4 text-sm sm:text-base">
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600">Questions:</span>
+						<span class="font-semibold text-slate-900">{data.questions.length}</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600">Max Marks:</span>
+						<span class="font-semibold text-slate-900"
+							>{data.correct_answer_marks * data.questions_count}</span>
+					</div>
+					<div class="flex items-center gap-2">
+						<span class="text-slate-600">Time:</span>
+						<span
+							class="font-semibold {time < 60 ? 'animate-pulse text-red-600' : 'text-slate-900'}">
+							{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
+						</span>
+					</div>
+					<button
+						class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 rounded-lg px-4 py-2 font-medium text-white transition focus:ring-2 focus:ring-offset-2 focus:outline-none"
+						onclick={() => (popupModal = true)}>
+						Submit Quiz
+					</button>
+				</div>
+			</div>
 		</div>
-		<div class="flex flex-col justify-between gap-2">
-			<div>No. of Questions - <span class="font-semibold">{data.questions.length}</span></div>
-			<div>
-				Max Marks - <span class="font-semibold">
-					{data.correct_answer_marks * data.questions_count}
-				</span>
-			</div>
-			<div>
-				<button
-					class="rounded-md bg-green-700 px-6 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-green-600"
-					onclick={() => (popupModal = true)}
-				>
-					Submit Quiz
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="items-left flex h-screen w-full flex-col justify-center gap-y-14 px-14">
-		<div class="relative h-[180px]">
-			<div class="pb-2 text-right">
-				Time - <span
-					class="font-semibold"
-					class:text-red-700={time < 60}
-					class:animate-pulse={time < 60}
-				>
-					{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
-				</span>
-			</div>
+	</header>
+
+	<main class="mx-auto max-w-[90rem] px-4 pt-32 pb-8 sm:px-6 lg:px-8">
+		<div class="relative overflow-hidden">
 			{#each [data.questions[questionNo]] as question (questionNo)}
 				<div
-					class="absolute w-full"
-					in:fly={{
-						x: 50 * direction,
-						duration: 400,
-						delay: 200,
-						easing: quintOut
-					}}
-					out:fly={{
-						x: -50 * direction,
-						duration: 400,
-						delay: 0,
-						easing: quintOut
-					}}
-				>
+					in:fly={{ x: 50 * direction, y: 0, duration: 300, easing: quintOut }}
+					out:fly={{ x: -50 * direction, y: 0, duration: 300, easing: quintOut }}>
 					<Question
 						{question}
 						id={questionNo}
 						optionDisable={false}
-						bind:chosenOption={answers[questionNo]}
-					/>
+						bind:chosenOption={answers[questionNo]} />
 				</div>
 			{/each}
 		</div>
 
-		<div class="flex flex-row justify-between">
-			<div>
-				<button
-					class="w-full rounded-md bg-blue-600 px-8 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-300"
-					onclick={handlePrevious}
-					disabled={questionNo === 0}
-				>
-					Previous
-				</button>
+		<div class="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-between">
+			<button
+				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+				onclick={handlePrevious}
+				disabled={questionNo === 0}>
+				<svg class="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+					<path
+						fill-rule="evenodd"
+						d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+						clip-rule="evenodd" />
+				</svg>
+				Previous
+			</button>
+
+			<div class="flex items-center justify-center text-sm text-slate-600">
+				Question {questionNo + 1} of {data.questions.length}
 			</div>
 
-			<div>
-				<button
-					class="w-full rounded-md bg-blue-600 px-8 py-1.5 text-white shadow-lg ring-1 ring-slate-300 duration-150 ease-in-out hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-300"
-					onclick={handleNext}
-					disabled={questionNo === data.questions.length - 1}
-				>
-					Next
-				</button>
-			</div>
+			<button
+				class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+				onclick={handleNext}
+				disabled={questionNo === data.questions.length - 1}>
+				Next
+				<svg class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+					<path
+						fill-rule="evenodd"
+						d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+						clip-rule="evenodd" />
+				</svg>
+			</button>
 		</div>
-	</div>
+	</main>
 </div>
 
-<Modal bind:open={popupModal} size="xs">
+<Modal bind:open={popupModal} size="sm">
 	<div class="text-center">
-		<ExclamationCircleOutline class="mx-auto mb-4 h-12 w-12 text-gray-400 dark:text-gray-200" />
-		<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-			{time === 0 ? 'Click submit to submit the quiz' : 'Are you sure you want to end the quiz?'}
+		<ExclamationCircleOutline class="mx-auto mb-4 h-12 w-12 text-slate-400" />
+		<h3 class="mb-5 text-lg font-medium text-slate-900">
+			{time === 0 ? "Time's up! Submit your quiz now." : 'Are you sure you want to end the quiz?'}
 		</h3>
+		<div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
+			<button
+				type="button"
+				class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				onclick={handleSubmit}
+				disabled={loading}>
+				{#if loading}
+					<Spinner class="mr-2" size="4" color="white" />
+					Submitting...
+				{:else}
+					Submit Quiz
+				{/if}
+			</button>
 
-		<button
-			type="button"
-			class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-hidden focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-			onclick={handleSubmit}
-		>
-			{#if loading}
-				<div class="flex flex-row items-center justify-center gap-2">
-					<Spinner color="gray" size={4} />
-					...Submitting
-				</div>
-			{:else}
-				Submit
-			{/if}
-		</button>
-		<button
-			type="button"
-			class="mb-2 me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-hidden focus:ring-4 focus:ring-gray-100 disabled:cursor-not-allowed disabled:bg-slate-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-			disabled={time === 0}
-			onclick={() => (popupModal = false)}
-		>
-			Cancel
-		</button>
+			<button
+				type="button"
+				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				disabled={time === 0}
+				onclick={() => (popupModal = false)}>
+				Continue Quiz
+			</button>
+		</div>
 	</div>
 </Modal>

@@ -7,6 +7,7 @@
 	let incorrect = $state(0);
 	let notAttempted = $state(0);
 	let options = $state();
+
 	onMount(() => {
 		for (let i = 0; i < questions.length; i++) {
 			if (answers[i] === 'nullnull') {
@@ -18,91 +19,84 @@
 			else incorrect++;
 		}
 	});
+
 	$effect(() => {
 		options = {
 			series: [correct, incorrect, notAttempted],
-			colors: ['#1C64F2', '#16BDCA', '#9061F9'],
+			colors: ['#22c55e', '#ef4444', '#94a3b8'],
 			chart: {
-				height: 420,
+				height: 320,
 				width: '100%',
-				type: 'pie'
+				type: 'pie',
+				fontFamily: 'inherit'
 			},
 			stroke: {
 				colors: ['white'],
-				lineCap: ''
+				width: 2
 			},
 			plotOptions: {
 				pie: {
 					labels: {
 						show: false
 					},
-					size: '100%',
+					size: '85%',
 					dataLabels: {
-						offset: -20
+						offset: -25
 					}
 				}
 			},
 			labels: ['Correct', 'Incorrect', 'Not Attempted'],
 			dataLabels: {
-				enabled: true
-			},
-			legend: {
-				position: 'bottom'
-			},
-			yaxis: {
-				labels: {
-					formatter: function (value) {
-						return value + '%';
-					}
+				enabled: true,
+				style: {
+					fontFamily: 'inherit',
+					fontWeight: '500'
 				}
 			},
-			xaxis: {
-				labels: {
-					formatter: function (value) {
-						return value + '%';
-					}
-				},
-				axisTicks: {
-					show: true
-				},
-				axisBorder: {
-					show: true
+			legend: {
+				position: 'bottom',
+				fontFamily: 'inherit',
+				fontSize: '14px',
+				markers: {
+					radius: 3
 				}
 			}
 		};
 	});
 </script>
 
-<div class="-z-30 flex flex-col gap-4">
-	<Card>
+<div class="mx-auto max-w-2xl">
+	<Card class="overflow-hidden">
 		{#if options}
-			<Chart {options} class="py-6" />
-			<div class="flex flex-row justify-center gap-4">
-				<div class="flex flex-col items-center justify-center">
-					<div class="flex flex-row items-center justify-center gap-3">
-						<div class="h-3 w-3 rounded-full bg-[#1C64F2]"></div>
-						<div>Correct</div>
+			<div class="p-6">
+				<h2 class="mb-4 text-center text-xl font-semibold text-slate-900">Quiz Results</h2>
+				<Chart {options} class="py-4" />
+
+				<div class="mt-6 grid grid-cols-3 gap-4 text-center">
+					<div class="rounded-lg bg-green-50 p-4">
+						<div class="text-sm font-medium text-green-800">Correct</div>
+						<div class="mt-1 text-2xl font-semibold text-green-600">{correct}</div>
 					</div>
-					<div>({correct})</div>
+
+					<div class="rounded-lg bg-red-50 p-4">
+						<div class="text-sm font-medium text-red-800">Incorrect</div>
+						<div class="mt-1 text-2xl font-semibold text-red-600">{incorrect}</div>
+					</div>
+
+					<div class="rounded-lg bg-slate-50 p-4">
+						<div class="text-sm font-medium text-slate-800">Not Attempted</div>
+						<div class="mt-1 text-2xl font-semibold text-slate-600">{notAttempted}</div>
+					</div>
 				</div>
-				<div class="flex flex-col items-center justify-center">
-					<div class="flex flex-row items-center justify-center gap-3">
-						<div class="h-3 w-3 rounded-full bg-[#16BDCA]"></div>
-						<div>Incorrect</div>
-					</div>
-					<div>({incorrect})</div>
-				</div>
-				<div class="flex flex-col items-center justify-center">
-					<div class="flex flex-row items-center justify-center gap-3">
-						<div class="h-3 w-3 rounded-full bg-[#9061F9]"></div>
-						<div>Not Attempted</div>
-					</div>
-					<div>({notAttempted})</div>
+			</div>
+
+			<div class="border-t border-slate-200 bg-slate-50 px-6 py-4">
+				<div class="text-center">
+					<span class="text-sm font-medium text-slate-700">Total Score:</span>
+					<span class="ml-2 text-2xl font-semibold text-slate-900">{correct}</span>
+					<span class="text-sm font-medium text-slate-600">/ {questions.length}</span>
 				</div>
 			</div>
 		{/if}
 	</Card>
-	<div class="text-center text-xl">
-		Total Points Scored - <span class="font-semibold">{correct} / {questions.length}</span>
-	</div>
 </div>

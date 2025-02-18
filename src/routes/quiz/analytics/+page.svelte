@@ -4,12 +4,11 @@
 	let { data } = $props();
 </script>
 
-<div class="flex w-full flex-col items-center justify-center pt-20">
-	<div class="w-full">
-		<h5 class="px-8 text-left text-3xl font-bold leading-none text-gray-900 dark:text-white">
-			Quiz Analytics
-		</h5>
+<div class="min-h-screen bg-slate-50 py-8">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="space-y-12">
+			<PieChart {data} />
+			<Questions {data} />
+		</div>
 	</div>
-	<PieChart {data} />
-	<Questions {data} />
 </div>
