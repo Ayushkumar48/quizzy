@@ -6,8 +6,10 @@
 	import { page } from '$app/state';
 </script>
 
-<div class="relative">
+<div class="fixed inset-0 flex flex-col bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 	<Header pathname={page.url.pathname} userData={data.user} />
-	{@render children()}
-	<Toaster richColors />
+	<main class="relative flex-1 overflow-auto">
+		{@render children()}
+	</main>
+	<Toaster richColors position="top-center" />
 </div>

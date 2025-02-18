@@ -13,7 +13,7 @@
 	<div class="h-full w-1/2 shadow-xl">
 		<img src={laptopondesk} alt="laptopondesk" class="h-full w-full object-cover" />
 	</div>
-	<div class="h-full w-1/2">
+	<div class="flex h-full w-1/2 items-center justify-center">
 		{#if login}
 			<Login bind:login {form} />
 		{:else}
