@@ -72,8 +72,8 @@
 	}
 </script>
 
-<div class="min-h-screen bg-slate-50">
-	<header class="fixed top-0 right-0 left-0 z-30 w-full bg-white shadow-sm">
+<div class="fixed inset-0 flex flex-col bg-slate-50">
+	<header class="flex-none bg-white shadow-sm">
 		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 				<div class="space-y-1">
@@ -112,78 +112,130 @@
 		</div>
 	</header>
 
-	<main class="mx-auto max-w-[90rem] px-4 pt-32 pb-8 sm:px-6 lg:px-8">
-		<div class="relative">
-			{#each [data.questions[questionNo]] as question (questionNo)}
-				<div>
-					<Question
-						{question}
-						id={questionNo}
-						optionDisable={false}
-						bind:chosenOption={answers[questionNo]} />
-				</div>
-			{/each}
-		</div>
-
-		<div class="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-between">
-			<button
-				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-				onclick={handlePrevious}
-				disabled={questionNo === 0}>
-				<svg class="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-					<path
-						fill-rule="evenodd"
-						d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-						clip-rule="evenodd" />
-				</svg>
-				Previous
-			</button>
-
-			<div class="flex items-center justify-center text-sm text-slate-600">
-				Question {questionNo + 1} of {data.questions.length}
+	<main class="relative flex min-h-0 flex-1">
+		<div class="flex w-full flex-col">
+			<div class="flex flex-1 items-center justify-center p-4 sm:px-6 lg:px-8">
+				{#each [data.questions[questionNo]] as question (questionNo)}
+					<div class="w-full max-w-[90rem]">
+						<Question
+							{question}
+							id={questionNo}
+							optionDisable={false}
+							bind:chosenOption={answers[questionNo]} />
+					</div>
+				{/each}
 			</div>
 
-			<button
-				class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-				onclick={handleNext}
-				disabled={questionNo === data.questions.length - 1}>
-				Next
-				<svg class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-					<path
-						fill-rule="evenodd"
-						d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-						clip-rule="evenodd" />
-				</svg>
-			</button>
+			<div
+				class="sticky bottom-0 mt-auto w-full border-t border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-6 lg:px-8">
+				<div
+					class="mx-auto flex max-w-[90rem] flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+					<button
+						class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+						onclick={handlePrevious}
+						disabled={questionNo === 0}>
+						<svg
+							class="mr-2 h-5 w-5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+						</svg>
+						Previous
+					</button>
+
+					<div class="flex items-center justify-center text-sm font-medium text-slate-600">
+						<span class="flex items-center gap-2">
+							<svg
+								class="text-primary-500 h-5 w-5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+							</svg>
+							Question {questionNo + 1} of {data.questions.length}
+						</span>
+					</div>
+
+					<button
+						class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium tracking-wide text-white uppercase shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+						onclick={handleNext}
+						disabled={questionNo === data.questions.length - 1}>
+						Next
+						<svg
+							class="ml-2 h-5 w-5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+						</svg>
+					</button>
+				</div>
+			</div>
 		</div>
 	</main>
 </div>
 
 <Modal bind:open={popupModal} size="sm">
 	<div class="text-center">
-		<ExclamationCircleOutline class="mx-auto mb-4 h-12 w-12 text-slate-400" />
+		<svg
+			class="mx-auto h-12 w-12 text-slate-400"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+		</svg>
 		<h3 class="mb-5 text-lg font-medium text-slate-900">
 			{time === 0 ? "Time's up! Submit your quiz now." : 'Are you sure you want to end the quiz?'}
 		</h3>
 		<div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
 			<button
 				type="button"
-				class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium tracking-wide text-white uppercase shadow-sm transition focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 				onclick={handleSubmit}
 				disabled={loading}>
 				{#if loading}
 					<Spinner class="mr-2" size="4" color="white" />
 					Submitting...
 				{:else}
+					<svg
+						class="mr-2 h-5 w-5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+					</svg>
 					Submit Quiz
 				{/if}
 			</button>
 
 			<button
 				type="button"
-				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 				disabled={time === 0}
 				onclick={() => (popupModal = false)}>
+				<svg
+					class="mr-2 h-5 w-5"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+				</svg>
 				Continue Quiz
 			</button>
 		</div>
