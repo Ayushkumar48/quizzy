@@ -113,11 +113,9 @@
 	</header>
 
 	<main class="mx-auto max-w-[90rem] px-4 pt-32 pb-8 sm:px-6 lg:px-8">
-		<div class="relative overflow-hidden">
+		<div class="relative">
 			{#each [data.questions[questionNo]] as question (questionNo)}
-				<div
-					in:fly={{ x: 50 * direction, y: 0, duration: 300, easing: quintOut }}
-					out:fly={{ x: -50 * direction, y: 0, duration: 300, easing: quintOut }}>
+				<div>
 					<Question
 						{question}
 						id={questionNo}

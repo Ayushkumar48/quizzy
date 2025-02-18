@@ -1,11 +1,8 @@
 <script>
-	import { fade } from 'svelte/transition';
 	let { question, id, optionDisable, chosenOption = $bindable() } = $props();
 </script>
 
-<div
-	class="min-h-[200px] rounded-lg bg-white p-6 ring-1 shadow-sm ring-slate-100"
-	transition:fade={{ duration: 200 }}>
+<div class="min-h-[200px] rounded-lg bg-white p-6 ring-1 shadow-sm ring-slate-100">
 	<div class="space-y-6">
 		<div class="flex items-start gap-3">
 			<span
