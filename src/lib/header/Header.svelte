@@ -69,7 +69,7 @@
 					<DarkMode class="text-primary-500 dark:text-primary-400" />
 					<button
 						type="button"
-						class="ml-4 focus:ring-primary-500 inline-flex items-center justify-center rounded-md p-2 hover:bg-slate-800 focus:ring-2 focus:outline-none focus:ring-inset sm:hidden"
+						class="focus:ring-primary-500 ml-4 inline-flex items-center justify-center rounded-md p-2 hover:bg-slate-800 focus:ring-2 focus:outline-none focus:ring-inset sm:hidden"
 						onclick={toggleMenu}
 						aria-expanded={isMenuOpen}>
 						<span class="sr-only">Open main menu</span>
