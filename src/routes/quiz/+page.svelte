@@ -99,7 +99,8 @@
 					<div class="flex items-center gap-2">
 						<span class="text-slate-600 dark:text-gray-400">Time:</span>
 						<span
-							class="font-semibold {time < 60
+							class="inline-block min-w-[5.5rem] text-right font-mono font-semibold tabular-nums {time <
+							60
 								? 'animate-pulse text-red-600'
 								: 'text-slate-900 dark:text-white'}">
 							{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
