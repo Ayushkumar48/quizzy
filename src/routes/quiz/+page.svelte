@@ -134,7 +134,7 @@
 			<div
 				class="sticky bottom-0 mt-auto w-full border-t border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-6 lg:px-8 dark:border-gray-700 dark:bg-gray-800">
 				<div
-					class="mx-auto flex max-w-[90rem] flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+					class="mx-auto grid max-w-[90rem] grid-cols-3 gap-3 sm:flex sm:items-center sm:justify-between">
 					<button
 						class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
 						onclick={handlePrevious}
