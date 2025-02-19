@@ -76,7 +76,7 @@
 	<header class="flex-none bg-white shadow-sm dark:bg-gray-800">
 		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-				<div class="space-y-1">
+				<div class="hidden space-y-1 sm:block">
 					<h1 class="text-xl font-bold text-slate-900 sm:text-2xl dark:text-white">
 						{data.title || 'Random Chapter'}
 					</h1>
@@ -85,33 +85,44 @@
 					</p>
 				</div>
 
-				<div class="flex flex-wrap items-center gap-4 text-sm sm:text-base">
-					<div class="flex items-center gap-2">
+				<div class="flex items-center justify-between gap-4 text-sm sm:text-base">
+					<div class="hidden items-center gap-2 sm:flex">
 						<span class="text-slate-600 dark:text-gray-400">Questions:</span>
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.questions.length}</span>
 					</div>
-					<div class="flex items-center gap-2">
+					<div class="hidden items-center gap-2 sm:flex">
 						<span class="text-slate-600 dark:text-gray-400">Max Marks:</span>
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.correct_answer_marks * data.questions_count}</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<span class="text-slate-600 dark:text-gray-400">Time:</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5 text-slate-600 dark:text-gray-400"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
 						<span
-							class="inline-block min-w-[5.5rem] text-right font-mono font-semibold tabular-nums {time <
+							class="inline-block min-w-[2.5rem] text-right font-mono font-semibold tabular-nums {time <
 							60
 								? 'animate-pulse text-red-600'
 								: 'text-slate-900 dark:text-white'}">
 							{`${String(Math.floor(time / 3600)).padStart(2, '0')}:${String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}
 						</span>
 					</div>
-					<DarkMode class="text-gray-500 dark:text-gray-400" />
 					<button
 						class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 focus:ring-primary-500 rounded-lg px-4 py-2 font-medium text-white transition focus:ring-2 focus:ring-offset-2 focus:outline-none"
 						onclick={() => (popupModal = true)}>
 						Submit Quiz
 					</button>
+					<DarkMode class="hidden text-gray-500 sm:block dark:text-gray-400" />
 				</div>
 			</div>
 		</div>
