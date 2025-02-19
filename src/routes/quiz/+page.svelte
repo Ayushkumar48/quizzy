@@ -7,7 +7,6 @@
 	import { toast } from 'svelte-sonner';
 	import { fail } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
-	// Added lucide-svelte icons
 	import {
 		List,
 		Award,
@@ -99,19 +98,16 @@
 
 				<div class="flex items-center justify-between gap-4 text-sm sm:text-base">
 					<div class="hidden items-center gap-2 sm:flex">
-						<!-- Replaced text with lucide icon for Questions -->
 						<List class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.questions.length}</span>
 					</div>
 					<div class="hidden items-center gap-2 sm:flex">
-						<!-- Replaced text with lucide icon for Max Marks -->
 						<Award class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.correct_answer_marks * data.questions_count}</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<!-- Replaced inline clock svg with lucide Timer icon -->
 						<Timer class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span
 							class="inline-block min-w-[2.5rem] text-right font-mono font-semibold tabular-nums {time <
@@ -154,7 +150,6 @@
 						class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
 						onclick={handlePrevious}
 						disabled={questionNo === 0}>
-						<!-- Replaced inline SVG with lucide ChevronLeft icon -->
 						<ChevronLeft class="mr-2 h-5 w-5" />
 						Previous
 					</button>
@@ -162,9 +157,8 @@
 					<div
 						class="flex items-center justify-center text-sm font-medium text-slate-600 dark:text-gray-400">
 						<span class="flex items-center gap-2">
-							<!-- Replaced inline SVG with lucide FileText icon -->
 							<FileText class="text-primary-500 dark:text-primary-400 h-5 w-5" />
-							Question {questionNo + 1} of {data.questions.length}
+							{questionNo + 1} of {data.questions.length}
 						</span>
 					</div>
 
@@ -173,7 +167,6 @@
 						onclick={handleNext}
 						disabled={questionNo === data.questions.length - 1}>
 						Next
-						<!-- Replaced inline SVG with lucide ChevronRight icon -->
 						<ChevronRight class="ml-2 h-5 w-5" />
 					</button>
 				</div>
@@ -184,7 +177,6 @@
 
 <Modal bind:open={popupModal} size="sm" class="dark:bg-gray-800">
 	<div class="text-center">
-		<!-- Replaced modal header inline SVG with lucide AlertTriangle icon -->
 		<AlertTriangle class="mx-auto h-12 w-12 text-slate-400 dark:text-gray-500" />
 		<h3 class="mb-5 text-lg font-medium text-slate-900 dark:text-white">
 			{time === 0 ? "Time's up! Submit your quiz now." : 'Are you sure you want to end the quiz?'}
@@ -199,7 +191,6 @@
 					<Spinner class="mr-2" size="4" color="white" />
 					Submitting...
 				{:else}
-					<!-- Replaced inline SVG with lucide Check icon -->
 					<Check class="mr-2 h-5 w-5" />
 					Submit Quiz
 				{/if}
@@ -210,7 +201,6 @@
 				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
 				disabled={time === 0}
 				onclick={() => (popupModal = false)}>
-				<!-- Replaced inline SVG with lucide X icon -->
 				<X class="mr-2 h-5 w-5" />
 				Continue Quiz
 			</button>
