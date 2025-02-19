@@ -4,10 +4,22 @@
 	import { slide, fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { Button, Modal, Spinner, DarkMode } from 'flowbite-svelte';
-	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
 	import { toast } from 'svelte-sonner';
 	import { fail } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
+	// Added lucide-svelte icons
+	import {
+		List,
+		Award,
+		Timer,
+		ChevronLeft,
+		ChevronRight,
+		FileText,
+		AlertTriangle,
+		Check,
+		X
+	} from 'lucide-svelte';
+
 	let popupModal = $state(false);
 	let { data } = $props();
 	data = data.data;
@@ -87,28 +99,20 @@
 
 				<div class="flex items-center justify-between gap-4 text-sm sm:text-base">
 					<div class="hidden items-center gap-2 sm:flex">
-						<span class="text-slate-600 dark:text-gray-400">Questions:</span>
+						<!-- Replaced text with lucide icon for Questions -->
+						<List class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.questions.length}</span>
 					</div>
 					<div class="hidden items-center gap-2 sm:flex">
-						<span class="text-slate-600 dark:text-gray-400">Max Marks:</span>
+						<!-- Replaced text with lucide icon for Max Marks -->
+						<Award class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span class="font-semibold text-slate-900 dark:text-white"
 							>{data.correct_answer_marks * data.questions_count}</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5 text-slate-600 dark:text-gray-400"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-						</svg>
+						<!-- Replaced inline clock svg with lucide Timer icon -->
+						<Timer class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 						<span
 							class="inline-block min-w-[2.5rem] text-right font-mono font-semibold tabular-nums {time <
 							60
@@ -150,34 +154,16 @@
 						class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
 						onclick={handlePrevious}
 						disabled={questionNo === 0}>
-						<svg
-							class="mr-2 h-5 w-5"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-						</svg>
+						<!-- Replaced inline SVG with lucide ChevronLeft icon -->
+						<ChevronLeft class="mr-2 h-5 w-5" />
 						Previous
 					</button>
 
 					<div
 						class="flex items-center justify-center text-sm font-medium text-slate-600 dark:text-gray-400">
 						<span class="flex items-center gap-2">
-							<svg
-								class="text-primary-500 dark:text-primary-400 h-5 w-5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-							</svg>
+							<!-- Replaced inline SVG with lucide FileText icon -->
+							<FileText class="text-primary-500 dark:text-primary-400 h-5 w-5" />
 							Question {questionNo + 1} of {data.questions.length}
 						</span>
 					</div>
@@ -187,14 +173,8 @@
 						onclick={handleNext}
 						disabled={questionNo === data.questions.length - 1}>
 						Next
-						<svg
-							class="ml-2 h-5 w-5"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-						</svg>
+						<!-- Replaced inline SVG with lucide ChevronRight icon -->
+						<ChevronRight class="ml-2 h-5 w-5" />
 					</button>
 				</div>
 			</div>
@@ -204,17 +184,8 @@
 
 <Modal bind:open={popupModal} size="sm" class="dark:bg-gray-800">
 	<div class="text-center">
-		<svg
-			class="mx-auto h-12 w-12 text-slate-400 dark:text-gray-500"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor">
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-		</svg>
+		<!-- Replaced modal header inline SVG with lucide AlertTriangle icon -->
+		<AlertTriangle class="mx-auto h-12 w-12 text-slate-400 dark:text-gray-500" />
 		<h3 class="mb-5 text-lg font-medium text-slate-900 dark:text-white">
 			{time === 0 ? "Time's up! Submit your quiz now." : 'Are you sure you want to end the quiz?'}
 		</h3>
@@ -228,14 +199,8 @@
 					<Spinner class="mr-2" size="4" color="white" />
 					Submitting...
 				{:else}
-					<svg
-						class="mr-2 h-5 w-5"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-					</svg>
+					<!-- Replaced inline SVG with lucide Check icon -->
+					<Check class="mr-2 h-5 w-5" />
 					Submit Quiz
 				{/if}
 			</button>
@@ -245,14 +210,8 @@
 				class="focus:ring-primary-500 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-medium tracking-wide text-slate-700 uppercase shadow-sm transition hover:bg-slate-50 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
 				disabled={time === 0}
 				onclick={() => (popupModal = false)}>
-				<svg
-					class="mr-2 h-5 w-5"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
+				<!-- Replaced inline SVG with lucide X icon -->
+				<X class="mr-2 h-5 w-5" />
 				Continue Quiz
 			</button>
 		</div>

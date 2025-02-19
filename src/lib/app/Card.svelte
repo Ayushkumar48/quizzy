@@ -1,5 +1,7 @@
 <script>
 	import Button from './Button.svelte';
+	// Importing lucide-svelte icons
+	import { Timer, BarChart, PlayCircle } from 'lucide-svelte';
 	let { data } = $props();
 	let completed = $state(true);
 </script>
@@ -41,42 +43,22 @@
 		</div>
 
 		<div class="mt-4 flex items-center justify-end space-x-1 text-sm text-slate-600">
-			<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
+			<!-- Replaced inline svg with lucide Timer icon -->
+			<Timer class="h-5 w-5 text-slate-600 dark:text-gray-400" />
 			<span>{data.duration} min</span>
 		</div>
 
 		<div class="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-between">
 			{#if completed}
 				<Button href="/quiz/analytics" className="w-full bg-green-700 hover:bg-green-600 sm:w-full">
-					<svg class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-					</svg>
+					<!-- Replaced inline svg with lucide BarChart icon -->
+					<BarChart class="mr-2 h-4 w-4" />
 					Analytics
 				</Button>
 			{/if}
 			<Button href="/quiz" className="w-full bg-primary-600 hover:bg-primary-700 sm:w-full">
-				<svg class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-				</svg>
+				<!-- Replaced inline svg with lucide PlayCircle icon -->
+				<PlayCircle class="mr-2 h-4 w-4" />
 				Start Quiz
 			</Button>
 		</div>
