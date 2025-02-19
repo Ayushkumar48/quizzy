@@ -14,6 +14,9 @@ importers:
       dynamoose:
         specifier: ^4.0.3
         version: 4.0.3
+      lucide-svelte:
+        specifier: ^0.475.0
+        version: 0.475.0(svelte@5.20.1)
       svelte-markdown:
         specifier: ^0.4.1
         version: 0.4.1(svelte@5.20.1)
@@ -1498,6 +1501,11 @@ packages:
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
+
+  lucide-svelte@0.475.0:
+    resolution: {integrity: sha512-N5+hFTPHaZe9HhqJDxxxODfYuOmI6v+JIowzERcea/uxytN/JZlehVTcINBNp8wMo7l6ov1Jf5srrDbkI/WsJg==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -3778,6 +3786,10 @@ snapshots:
   lodash.merge@4.6.2: {}
 
   lru-cache@10.4.3: {}
+
+  lucide-svelte@0.475.0(svelte@5.20.1):
+    dependencies:
+      svelte: 5.20.1
 
   magic-string@0.30.17:
     dependencies:

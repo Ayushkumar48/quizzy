@@ -4,13 +4,18 @@
 	data = data.data;
 </script>
 
+<svelte:head>
+	<title>Quizzy</title>
+</svelte:head>
+
 <div class="mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8">
-	<header class="mb-12">
+	<header class="mb-4">
 		<h1 class="text-3xl font-bold tracking-tight">Available Quizzes</h1>
 		<p class="mt-2 text-sm">Select a quiz to begin your assessment</p>
 	</header>
 
 	<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<Card {data} />
 		<Card {data} />
 		<Card {data} />
 	</div>
