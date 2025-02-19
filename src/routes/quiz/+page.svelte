@@ -157,7 +157,6 @@
 					<div
 						class="flex items-center justify-center text-sm font-medium text-slate-600 dark:text-gray-400">
 						<span class="flex items-center gap-2">
-							<FileText class="text-primary-500 dark:text-primary-400 h-5 w-5" />
 							{questionNo + 1} of {data.questions.length}
 						</span>
 					</div>
