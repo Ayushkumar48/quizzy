@@ -28,6 +28,7 @@
 	let direction = $state(1);
 	let answers = $state(new Array(data.questions.length).fill(null));
 	let loading = $state(false);
+
 	async function handleSubmit() {
 		loading = true;
 		clearInterval(interval);
@@ -54,6 +55,7 @@
 		}
 	}
 
+	// Timer interval setup
 	onMount(() => {
 		interval = setInterval(async () => {
 			if (time > 0) {
@@ -66,8 +68,10 @@
 		}, 1000);
 	});
 
+	// Cleanup timer on component destroy
 	onDestroy(() => clearInterval(interval));
 
+	// Navigation between questions
 	function handleNext() {
 		if (questionNo < data.questions.length - 1) {
 			direction = 1;
@@ -87,7 +91,9 @@
 	<title>Quiz - {data.title}</title>
 </svelte:head>
 
+<!-- LAYOUT: Main container for the quiz page -->
 <div class="fixed inset-0 flex flex-col bg-slate-50 dark:bg-gray-900">
+	<!-- HEADER: Displays quiz title, topic, timer, and navigation buttons -->
 	<header class="flex-none bg-white shadow-sm dark:bg-gray-800">
 		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
 			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -132,6 +138,7 @@
 		</div>
 	</header>
 
+	<!-- MAIN SECTION: Displays current quiz question and navigation controls -->
 	<main class="relative flex min-h-0 flex-1">
 		<div class="flex w-full flex-col">
 			<div class="flex flex-1 items-center justify-center p-4 sm:px-6 lg:px-8">
@@ -178,6 +185,7 @@
 	</main>
 </div>
 
+<!-- MODAL: Confirmation dialog for quiz submission when time expires or user chooses to submit -->
 <Modal bind:open={popupModal} size="sm" class="dark:bg-gray-800">
 	<div class="text-center">
 		<AlertTriangle class="mx-auto h-12 w-12 text-slate-400 dark:text-gray-500" />
