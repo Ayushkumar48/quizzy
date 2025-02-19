@@ -83,6 +83,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Quiz - {data.title}</title>
+</svelte:head>
+
 <div class="fixed inset-0 flex flex-col bg-slate-50 dark:bg-gray-900">
 	<header class="flex-none bg-white shadow-sm dark:bg-gray-800">
 		<div class="mx-auto max-w-[90rem] px-4 py-4 sm:px-6 lg:px-8">
