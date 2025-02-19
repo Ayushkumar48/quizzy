@@ -4,6 +4,10 @@
 	data = data.data;
 </script>
 
+<svelte:head>
+	<title>Quizzy</title>
+</svelte:head>
+
 <div class="mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8">
 	<header class="mb-4">
 		<h1 class="text-3xl font-bold tracking-tight">Available Quizzes</h1>
